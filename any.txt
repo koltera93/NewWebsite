@@ -1,5 +1,3 @@
-{% extends 'base.html.twig' %}
-
 {% block title %}MyBlog!{% endblock %}
 
 {% block body %}
@@ -19,4 +17,4 @@
     </table>
 
 </div>
-{% endblock %}
+{% endblock

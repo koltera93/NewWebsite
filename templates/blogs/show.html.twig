@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <style>
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        body {background-color: #999999 }
+    </style>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>{{ blog.name }}</h2>
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-3">
+                <p>{{ blog.text }}</p>
+            </blockquote>
+        </div>
+        <a href="{{ path('homepage') }}"></a>
+    </div>
+{% endblock %}
