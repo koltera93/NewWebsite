@@ -10,25 +10,39 @@ namespace App\Controller;
 
 
 use App\Entity\Blog;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class BlogController extends AbstractController
 {
 
     /**
-     * @Route("/Blog", name="Blog")
+     * @Route("/blog/create", name="blog")
      */
-    public function index()
+    public function index(Request $request, EntityManagerInterface $entityManager)
     {
 
-        $AddBlog = new Blog();
+        $addBlog = new Blog();
 
-        $form = $this->createFormBuilder($AddBlog)
+        $form = $this->createFormBuilder($addBlog)
             ->add('name')
             ->add('text')
             ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager->persist($addBlog);
+            $entityManager->flush();
+
+            $this->addFlash('success' , 'Спасибо за обращение, мы обязательно с вами свяжемся!');
+
+            return $this->redirectToRoute('blogs_show',['id' => $addBlog->getId()]);
+        }
 
         return $this->render('blogs/index.html.twig',
             ['form' => $form->createView(),]
@@ -39,13 +53,11 @@ class BlogController extends AbstractController
      * @Route("/blogs/{id}", name="blogs_show")
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @ParamConverter("post")
      */
-    public function show(Blog $blogService)
+    public function show(Blog $blog)
     {
         return $this->render('blogs/show.html.twig', [
-            'blog' => $blogService
+            'blog' => $blog
         ]);
     }
 
