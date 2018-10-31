@@ -8,10 +8,9 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Comment;
 use App\Entity\Blog;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,15 +19,14 @@ class BlogController extends AbstractController
 {
 
     /**
-     * @Route("/blog/create", name="blog")
+     * @Route("/blog/{id}", name="blog")
      */
     public function index(Request $request, EntityManagerInterface $entityManager)
     {
+            $blog = new Blog();
 
-        $addBlog = new Blog();
-
-        $form = $this->createFormBuilder($addBlog)
-            ->add('name')
+        $form = $this->createFormBuilder($blog)
+            ->add('blog')
             ->add('text')
             ->getForm();
 
@@ -36,12 +34,10 @@ class BlogController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $entityManager->persist($addBlog);
+            $entityManager->persist($blog);
             $entityManager->flush();
 
-            $this->addFlash('success' , 'Спасибо за обращение, мы обязательно с вами свяжемся!');
-
-            return $this->redirectToRoute('blogs_show',['id' => $addBlog->getId()]);
+            return $this->redirectToRoute('blogs_show',['id' => $blog->getId()]);
         }
 
         return $this->render('blogs/index.html.twig',
@@ -54,10 +50,28 @@ class BlogController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show(Blog $blog)
+    public function show(Blog $blog, Request $request, EntityManagerInterface $entityManager)
     {
+
+        $comment = new Comment();
+
+        $form = $this->createFormBuilder($comment)
+            ->add('nickname')
+            ->add('comment')
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('blog', ['id' => $blog->getId()]);
+        }
+
         return $this->render('blogs/show.html.twig', [
-            'blog' => $blog
+            'blog' => $blog,
+            'form' => $form->createView(),
         ]);
     }
 

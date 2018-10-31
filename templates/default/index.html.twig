@@ -13,8 +13,11 @@
 
     <table>
     {% for blogs in blog %}
-        <td><a href="{{ path('blogs_show', {'id': blogs.id}) }}"><h2>{{ blogs.name }}<br></h2></a></td>
+        <td><a href="{{ path('blogs_show', {'id': blogs.id}) }}"><h2>{{ blogs.blog }}<br></h2></a></td>
         <td>{{ blogs.text }}</td>
+
+
+
     {% endfor %}
     </table>
 

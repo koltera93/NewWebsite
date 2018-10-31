@@ -2,6 +2,10 @@
 
 {% block title %}{% endblock %}
 
+{% block head %}
+   <h3><a href="{{ path('homepage') }}">На главную</a></h3>
+{% endblock %}
+
 {% block body %}
 
     <style>
@@ -17,8 +21,25 @@
             <blockquote class="blockquote mb-3">
                 <p>{{ blog.text }}</p>
                 <footer class="blockquote-footer">Создано -<cite>{{ blog.date|date("D M j G:i:s T Y") }}</cite></footer>
+                <p>{{ blog.nickname }}</p>
+                <p></p>
             </blockquote>
         </div>
-        <a href="{{ path('homepage') }}"></a>
+
+
+        <div class="example-wrapper">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            {{ form_widget(form) }}
+
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-primary">Добавить комментарий</button>
+                </div>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+
+        <a href="{{ path('homepage') }}">На главную</a>
     </div>
 {% endblock %}
