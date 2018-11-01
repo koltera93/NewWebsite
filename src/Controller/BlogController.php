@@ -11,6 +11,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Blog;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +21,7 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blog/{id}", name="blog")
+     * @ParamConverter("post", options={"mapping"={"id"="id"}})
      */
     public function index(Request $request, EntityManagerInterface $entityManager)
     {
@@ -47,13 +49,14 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blogs/{id}", name="blogs_show")
-     *
+     * @ParamConverter("post", options={"mapping"={"id"="id"}})
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function show(Blog $blog, Request $request, EntityManagerInterface $entityManager)
     {
 
         $comment = new Comment();
+        $comment->setBlog($blog);
 
         $form = $this->createFormBuilder($comment)
             ->add('nickname')

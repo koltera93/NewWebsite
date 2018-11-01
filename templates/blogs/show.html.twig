@@ -22,7 +22,10 @@
                 <p>{{ blog.text }}</p>
                 <footer class="blockquote-footer">Создано -<cite>{{ blog.date|date("D M j G:i:s T Y") }}</cite></footer>
             </blockquote>
-        </div>
+
+            {% for comments in blog %}
+            <p>{{ comments }}</p>
+            {% endfor %}
 
         <div class="example-wrapper">
             {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
