@@ -21,21 +21,18 @@
             <blockquote class="blockquote mb-3">
                 <p>{{ blog.text }}</p>
                 <footer class="blockquote-footer">Создано -<cite>{{ blog.date|date("D M j G:i:s T Y") }}</cite></footer>
-                <p>{{ blog.nickname }}</p>
-                <p></p>
             </blockquote>
         </div>
-
 
         <div class="example-wrapper">
             {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
             {{ form_widget(form) }}
 
-            <div class="form-group row">
-                <div class="col-sm-10 offset-sm-2">
-                    <button type="submit" class="btn btn-primary">Добавить комментарий</button>
+                <div class="form-group row">
+                    <div class="col-sm-10 offset-sm-2">
+                        <button type="submit" class="btn btn-primary">Добавить комментарий</button>
+                    </div>
                 </div>
-            </div>
 
             {{ form_end(form) }}
         </div>

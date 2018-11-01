@@ -11,9 +11,9 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Blog;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class BlogController extends AbstractController
 {
@@ -66,7 +66,7 @@ class BlogController extends AbstractController
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('blog', ['id' => $blog->getId()]);
+            return $this->redirectToRoute('blogs_show', ['id' => $blog->getId()]);
         }
 
         return $this->render('blogs/show.html.twig', [

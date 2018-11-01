@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Blog;
-use App\Service\Blogs;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,7 +11,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(Blogs $blogService)
+    public function index()
     {
 
         $filter = $this->getDoctrine()->getRepository(Blog::class);
