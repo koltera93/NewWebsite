@@ -13,7 +13,6 @@ class DefaultController extends AbstractController
      */
     public function index()
     {
-
         $filter = $this->getDoctrine()->getRepository(Blog::class);
         $latestBlogs = $filter->findBy([],['date' => 'DESC'], 3);
 

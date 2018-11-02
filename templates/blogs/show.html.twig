@@ -2,6 +2,8 @@
 
 {% block title %}{% endblock %}
 
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {% block head %}
    <h3><a href="{{ path('homepage') }}">На главную</a></h3>
 {% endblock %}
@@ -23,10 +25,16 @@
                 <footer class="blockquote-footer">Создано -<cite>{{ blog.date|date("D M j G:i:s T Y") }}</cite></footer>
             </blockquote>
 
-            {% for comments in blog %}
-            <p>{{ comments }}</p>
+            <h3>Ваши комментарии</h3>
+
+            {% for comments in blog.comment  %}
+               <h5><a>{{ comments.nickname }}</a><br></h5>
+                <a>{{ comments.comment|nl2br }}</a><br>
+                <a>{{ comments.date|date("D M j G:i:s Y") }}</a>
             {% endfor %}
 
+
+            <h3>Прокомментируйте запись</h3>
         <div class="example-wrapper">
             {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
             {{ form_widget(form) }}

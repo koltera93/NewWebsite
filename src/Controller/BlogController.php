@@ -20,15 +20,14 @@ class BlogController extends AbstractController
 {
 
     /**
-     * @Route("/blog/{id}", name="blog")
-     * @ParamConverter("post", options={"mapping"={"id"="id"}})
+     * @Route("/blog", name="blog")
      */
     public function index(Request $request, EntityManagerInterface $entityManager)
     {
             $blog = new Blog();
 
         $form = $this->createFormBuilder($blog)
-            ->add('blog')
+            ->add('name')
             ->add('text')
             ->getForm();
 
