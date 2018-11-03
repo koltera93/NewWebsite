@@ -2,6 +2,18 @@
 
 {% block title %}MyBlog!{% endblock %}
 
+{% block head %}
+
+    <title>{% block title %}MyBlog!{% endblock %}</title>
+
+    <div class="container-fluid">
+        <h1>MyBlog</h1>
+        <a href="{{ path('blog') }}" class="btn btn-primary">Создайте новую запись</a>
+    </div>
+
+{%endblock %}
+
+
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
@@ -9,15 +21,13 @@
     body {background-color: #5eb5e0 }
 </style>
 
+
 <div class="example-wrapper">
 
     <table>
     {% for blogs in blog %}
         <td><a href="{{ path('blogs_show', {'id': blogs.id}) }}"><h2>{{ blogs.blog }}<br></h2></a></td>
         <td>{{ blogs.text }}</td>
-
-
-
     {% endfor %}
     </table>
 

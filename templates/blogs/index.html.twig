@@ -2,23 +2,33 @@
 
 {% block title %}MyBlog!{% endblock %}
 
-{% block head %}<h2>Поделись с нами!</h2>{% endblock %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
-{% block body %}
+{% block head %}
 
-<div class="example-wrapper">
-
-    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_widget(form) }}
-
-    <div class="form-group row">
-        <div class="col-sm-10 offset-sm-2">
-            <button type="submit" class="btn btn-primary">Отправить</button>
-        </div>
+    <div class="container-fluid">
+        <h1>MyBlog</h1>
+        <h2>Поделись с нами!</h2>
     </div>
 
-    {{ form_end(form) }}
+{%endblock %}
 
-</div>
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_widget(form) }}
+
+        <div class="form-group row">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-primary">Отправить</button>
+                <a href="{{ path('homepage') }}">На главную</a>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+        </div>
+    </div>
 
 {% endblock %}
