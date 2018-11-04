@@ -74,7 +74,7 @@ class BlogController extends AbstractController
 
 
     /**
-     * @Route("/blogs", name="blogs_edit")
+     * @Route("/blogs_edit/{id}", name="blogs_edit")
 
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -92,13 +92,13 @@ class BlogController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            return $this->redirectToRoute('blogs_show',[
+            return $this->redirectToRoute('blogs_edit',[
                 'id' => $blog->getId()
             ]);
         }
 
         return $this->render('blogs/edit.html.twig',
-            ['form' => $form->createView(),]
+            ['form' => $form->createView()]
         );
     }
 

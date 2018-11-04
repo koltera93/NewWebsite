@@ -11,7 +11,7 @@ class Blogs
 {
 
     /**
-     * @var EntityManager
+     * @var EntityMnager
      */
     private $em;
 

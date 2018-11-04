@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <h1>MyBlog</h1>
         <a href="{{ path('blog') }}" class="btn btn-primary">Создайте новую запись</a>
-        <a href={{ path('blogs_edit') }}>Изменить</a>
+        <a href="{{ path('blogs_edit',{'id': blog.id}) }}">Изменить</a>
     </div>
 
 {%endblock %}
