@@ -1,17 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: volodya
- * Date: 28.10.18
- * Time: 15:56
- */
 
 namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Blog;
+use App\Form\BlogType;
+use App\Service\Blogs;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,7 +43,7 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blogs/{id}", name="blogs_show")
-     * @ParamConverter("post", options={"mapping"={"id"="id"}})
+
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function show(Blog $blog, Request $request, EntityManagerInterface $entityManager)
@@ -76,5 +71,36 @@ class BlogController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
+    /**
+     * @Route("/blogs", name="blogs_edit")
+
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function edit(Request $request, $id)
+    {
+        $blog = $this->getDoctrine()
+            ->getRepository(Blog::class)
+            ->find($id);
+
+        $form = $this->createForm(BlogType::class, $blog);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('blogs_show',[
+                'id' => $blog->getId()
+            ]);
+        }
+
+        return $this->render('blogs/edit.html.twig',
+            ['form' => $form->createView(),]
+        );
+    }
+
 
 }

@@ -44,6 +44,7 @@ class Comment
 
     public function __construct()
     {
+        $this->blog = '';
         $this->comment = '';
         $this->date = new \DateTime();
     }

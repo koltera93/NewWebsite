@@ -36,6 +36,9 @@ class Blogs
         return $this->repo->findAll();
     }
 
+    /**
+     * @return Blog
+     */
     public function getById($id): ?Blog
     {
         return $this->repo->find($id);
