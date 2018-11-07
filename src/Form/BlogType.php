@@ -11,8 +11,8 @@ class BlogType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('blogName',null)
-            ->add('blogText',null)
+            ->add('name',null)
+            ->add('text',null)
         ;
     }
     public function configureOptions(OptionsResolver $resolver)

@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Blog;
 use App\Form\BlogType;
-use App\Service\Blogs;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -78,8 +77,10 @@ class BlogController extends AbstractController
 
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, Blog $blog)
     {
+        $id = $blog->getId();
+
         $blog = $this->getDoctrine()
             ->getRepository(Blog::class)
             ->find($id);
